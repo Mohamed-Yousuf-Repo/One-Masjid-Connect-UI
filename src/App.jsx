@@ -1,22 +1,49 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Auth/Login";
+import { useState } from "react";
+import "./index.css";
 
-function App() {
+const App = () => {
+  const [isPassword, setIsPassword] = useState(true);
+
   return (
-    <Router>
-      <Routes>
-        {/* Default route "/" goes to Login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+    <div className="container">
+      <div className="left-panel">
+        <h1>Masjid Hub</h1>
+        <p>Connecting Our Community</p>
+      </div>
 
-        {/* Login route */}
-        <Route path="/login" element={<Login />} />
+      <div className="right-panel">
+        <h2>Log In</h2>
 
-        {/* Catch-all route redirects to login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+        <form className="login-form">
+          <div className="input-group">
+            <span className="material-symbols-outlined">mail</span>
+            <input type="text" placeholder="UserName" required />
+          </div>
+
+          <div className="input-group password-group">
+            <span className="material-symbols-outlined">lock</span>
+            <input
+              type={isPassword ? "password" : "text"}
+              placeholder="Password"
+              required
+            />
+            <button
+              type="button"
+              className="password-toggle material-symbols-outlined"
+              onClick={() => setIsPassword(!isPassword)}
+              aria-label={isPassword ? "Show password" : "Hide password"}
+            >
+              {isPassword ? "visibility" : "visibility_off"}
+            </button>
+          </div>
+
+          <button className="login-btn" type="submit">
+            Continue
+          </button>
+        </form>
+      </div>
+    </div>
   );
-}
+};
 
 export default App;
